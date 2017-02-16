@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
          return false;
       }
 
-      //Else loop through all values from 2 to the floor of the square root of num to check primality
+      //Else loop through all values from 2 to the ceiling of the square root of num to check primality
       //Used https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
-      for (div = 2; div <= Math.floor(Math.sqrt(num)); div += 1) {
+      for (div = 2; div <= Math.ceil(Math.sqrt(num)); div += 1) {
          //If div divides num, it isn't prime
          if (num % div === 0) {
             return false;
@@ -39,13 +39,10 @@ document.addEventListener('DOMContentLoaded', function () {
          //Assign output box
          outputElement = document.querySelector('#prime-or-not');
 
-         //If the value is not a finitie number, output 'not a number'
-         if (isFinite(num) || isNaN(num)) {
+         //If the value is not a finite number, output 'not a number'
+         if (!isFinite(num) || isNaN(num)) {
             outputElement.textContent = 'not a number';
-         }
-
-         //If num is prime, output 'prime', else output 'not prime'
-         if (isPrime(num)) {
+         } else if (isPrime(num)) { //If num is prime, output 'prime', else output 'not prime'
             outputElement.textContent = 'prime';
          } else {
             outputElement.textContent = 'not prime';
@@ -62,7 +59,19 @@ document.addEventListener('DOMContentLoaded', function () {
       }, false);
    }());
 
-   // WRITE YOUR fibonacci FUNCTION HERE
+   fibonacci = function fibonacci(n) {
+      //If n is infinite or negative, return 0
+      if (!isFinite(n) || n < 0) {
+         return 0;
+      } else { //Else n is finite and nonnegative, so continue
+         //If n < 2, return n as a base case
+         if (n < 2) {
+            return n;
+         } else { //Else recursively call fibonacci
+            return (fibonacci(n - 2) + fibonacci(n - 1));
+         }
+      }
+   };
 
    // Do things when the "Calculate it" button is clicked.
    document.querySelector('#calculate-fibonacci').addEventListener('click', function () {
