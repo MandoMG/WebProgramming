@@ -9,46 +9,49 @@ document.addEventListener('DOMContentLoaded', function () {
    'use strict';
    var fibonacci, isPrime, rememberTotal, reverseString;
 
-   isPrime = (function (num) {
+   isPrime = function (num) {
+      //Variables for use within isPrime
+      var div;
+
       //If the number is less than two or not a number, it can't be prime
       if (num < 2 || isNaN(num)) {
          return false;
       }
-      
-      //Else loop through all values from 2 to the ceiling of the square root of num to check primality
+
+      //Else loop through all values from 2 to the floor of the square root of num to check primality
       //Used https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
-      for(int div = 2; div <= Math.ceil(Math.sqrt(num)); div += 1) {
+      for (div = 2; div <= Math.floor(Math.sqrt(num)); div += 1) {
          //If div divides num, it isn't prime
-         if(num % div === 0) {
+         if (num % div === 0) {
             return false;
          }
       }
       //Otherwise num is prime
       return true;
-   } ());
+   };
 
    (function () {
       var report;
 
-      report = (function (num) {
+      report = function (num) {
          //Variable to hold output box
          var outputElement;
          //Assign output box
          outputElement = document.querySelector('#prime-or-not');
-         
+
          //If the value is not a finitie number, output 'not a number'
          if (isFinite(num) || isNaN(num)) {
             outputElement.textContent = 'not a number';
          }
-         
+
          //If num is prime, output 'prime', else output 'not prime'
          if (isPrime(num)) {
             outputElement.textContent = 'prime';
          } else {
             outputElement.textContent = 'not prime';
          }
-         
-      } ());
+
+      };
 
       // Call the report function even before there's a value to use.
       report();
