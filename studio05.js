@@ -83,7 +83,21 @@ document.addEventListener('DOMContentLoaded', function () {
       document.querySelector('#fibonacci-number').textContent = fibonacci(whichFibonacciNumber).toString();
    }, false);
 
-   // WRITE YOUR rememberTotal FUNCTION HERE
+   rememberTotal = (function () {
+      //Variable to hold the accumulator total
+      var total;
+      total = 0;  //Initialize to 0
+      //return a function that adds num to total given num is a finite number
+      return function (num) {
+         //If num isn't a finite number, don't change total
+         if (!isFinite(num) || isNaN(num)) {
+            return total;
+         } else { //else add num onto total
+            total += num;
+            return total;
+         }
+      };
+   }());
 
    // Output the initial total.
    document.querySelector('#total-number').textContent = rememberTotal();
@@ -93,7 +107,14 @@ document.addEventListener('DOMContentLoaded', function () {
       document.querySelector('#total-number').textContent = rememberTotal();
    }, false);
 
-   // WRITE YOUR reverseString FUNCTION HERE
+   reverseString = function reverseString(str) {
+      //If string is not a string or has a length of 0, then return the empty string
+      if (typeof str !== 'string' || str.length === 0) {
+         return '';
+      } else { //Else reverse the string and return it
+         return str.charAt(str.length-1) + reverseString(str.slice(0,str.length-1));
+      }
+   };
 
    (function () {
       var reversalInputElement;
