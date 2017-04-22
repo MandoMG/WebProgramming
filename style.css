@@ -1,0 +1,145 @@
+@charset "UTF-8";
+
+/* CS 3312, spring 2017
+   Final Project
+   YOUR NAME(S): Armando Meza, Jacob Hallenberger*/
+
+body {
+	margin: 0;
+	background-image: url("http://www.sharecg.com/images/medium/379.jpg");
+	text-align: center;
+}
+
+p {
+	font-size: 0px;
+}
+
+h1{
+   color: white;
+   font-size: 50px;
+   margin: 10px;
+}
+
+#top-header{
+   display: block;
+	margin: 0px;
+   border: 5px;
+   border-color: #245397;
+   border-style: solid;
+   padding: 5px;	
+	background-color: #245397;
+}
+
+.dice-holder{
+   display:flex;
+   justify-content: center;
+   flex-wrap: wrap;
+}
+
+.yahtzee-dice {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-family: monospace;
+   font-size: 200%;
+   flex-wrap: wrap;
+}
+
+.yahtzee-dice div{
+   display: flex;
+   justify-content: space-around;
+   align-items: center;   
+   width: 250px;
+	height: 250px;
+	/*text-align: center;*/
+	font-size: 25px;
+	font-weight: bold;
+	color: black;	
+}
+
+#RollButton
+{
+	width: 100px;
+	height: 100px;
+	background-color: light gray;
+}
+
+.category-select {
+	display:flex;
+   margin: 0px;
+	align-items: center;
+	text-align: left;
+   background-color: #245397;   
+}
+
+.scoringButtons{
+   display: flex;
+   margin: 10px;
+   flex-wrap: wrap;
+}
+
+.scoringButtons li{   
+   float: left;
+   list-style: none;
+   text-align: center;
+   background-color: #245397;
+   color: #FFFFFF;
+   width: 100px;
+   line-height: 50px;
+}
+
+.scoringButtons li:hover{
+   float: left;
+   list-style: none;
+   text-align: center;
+   background-color: #F0C33B;
+   font-weight: bold;
+   color: #FFFFFF;
+   width: 100px;
+   line-height: 50px;
+}
+
+/*.scoringButtons > .disabled{   
+   float: left;
+   list-style: none;
+   text-align: center;
+   background-color: #AAAAAA;
+   color: #000000;
+   width: 100px;
+   line-height: 50px;
+}*/
+
+.scoring-sheet {
+	display:flex;
+	align-items: flex-start;
+   margin: 0px;
+   border: 7px;
+   border-style: solid;
+   border-color: #245397;
+   background-color: #FFFFFF;
+   padding: 15px;
+	text-align: left;
+}
+
+.scoring-sheet table {
+   border-radius: 10px;
+   margin: 5px;
+}
+
+#players-table td {
+   align-items: center;
+}
+
+.table-head {
+	text-align: right;
+}
+
+table {
+	border: 1px solid black;
+}
+
+div {
+	display: flex;   
+	flex-direction: row;
+	margin: 15px;
+}
