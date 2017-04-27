@@ -113,6 +113,11 @@ document.addEventListener('DOMContentLoaded', function () {
          },
          score: function (scoreType) { //scoreType should be an integer from 0-12, in the order the categories are on the scoresheet
             var dieResults, hasScored, scoreValue, threeFound, twoFound, straightSize;
+            //If the game is over don't allow any more scoring
+            if (state.gameFinished) {
+               return false;
+            }
+               
             //set hasScored and scoreValue to defaults
             hasScored = false;
             scoreValue = 0;
@@ -123,8 +128,8 @@ document.addEventListener('DOMContentLoaded', function () {
             state.dice.forEach(function (die) {
                dieResults[die.value - 1] += 1;
             });
-            //Check to see if the score is available for the current player, if not then return false
-            if(state.scoreSheet[state.currentPlayer][scoreType] >= 0) {
+            //Check to see if the score is available for the current player (and not trying to score yahtzee), if not then return false
+            if(state.scoreSheet[state.currentPlayer][scoreType] >= 0 && scoreType != 12) {
                return hasScored;
             }
             
@@ -230,8 +235,17 @@ document.addEventListener('DOMContentLoaded', function () {
                   if (dieCount === 5) {
                      scoreValue = 50;
                      hasScored = true;
+                     //If a yahtzee has already been scored, and wasn't 0, then check to see if the player has played in the corresponding top section
+                     if (state.scoreSheet[state.currentPlayer][scoreType] >= 50 && state.scoreSheet[state.currentPlayer][whichDie] > 0) {
+                        //If a second yahtzee has been scored, then score 100 more points in the yahtzee category
+                        scoreValue = 100 + state.scoreSheet[state.currentPlayer][scoreType];
+                     }
                   }
                });
+               //If no second yahtzee was scored return from the function without doing anything
+               if(state.scoreSheet[state.currentPlayer][scoreType] >= 50 && scoreValue <= 50) {
+                  return hasScored;
+               }
             }
             
             //If no valid score was made, then return without doing anything else
@@ -243,6 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             //Update the scoreSheet with the new score
             state.scoreSheet[state.currentPlayer][scoreType] = scoreValue;
+            
             
             //Go to the next player
             state.currentPlayer = (state.currentPlayer + 1) % state.numPlayers;
@@ -332,8 +347,8 @@ document.addEventListener('DOMContentLoaded', function () {
             categoryButtonElements.forEach(function (button, whichButton) {
                //Remove classes from the submit buttons
                button.classList.remove('disabled','selected');
-               //If the corresponding score for the current player and this button exists, then disable the button
-               if (yahtzeeGame.getScores()[yahtzeeGame.getCurrentPlayer()][whichButton] >= 0) {
+               //If the corresponding score for the current player and this button exists (and isn't yahtzee), then disable the button
+               if (yahtzeeGame.getScores()[yahtzeeGame.getCurrentPlayer()][whichButton] >= 0 && whichButton != 12) {
                   button.classList.add('disabled');
                //Else if the button is the selected category, highlight it
                } else if (whichButton === selectedCategory) {
