@@ -82,7 +82,7 @@ h1{
    float: left;
    list-style: none;
    text-align: center;
-   background-color: #245397;
+   /*background-color: #245397;*/
    color: #FFFFFF;
    width: 100px;
    line-height: 50px;
@@ -99,15 +99,16 @@ h1{
    line-height: 50px;
 }
 
-/*.scoringButtons > .disabled{   
-   float: left;
-   list-style: none;
-   text-align: center;
+.disabled{   
    background-color: #AAAAAA;
-   color: #000000;
-   width: 100px;
-   line-height: 50px;
-}*/
+   font-weight: bold;
+}
+
+.selected{
+   background-color: #F0C33B;
+   font-weight: bold;
+   color: #FFFFFF;
+}
 
 .scoring-sheet {
 	display:flex;
@@ -123,7 +124,7 @@ h1{
 
 .scoring-sheet table {
    border-radius: 10px;
-   margin: 5px;
+   margin: 5px;   
 }
 
 #players-table td {
