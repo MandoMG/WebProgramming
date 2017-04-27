@@ -411,6 +411,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
       };
       
+      //If a user enters an out of bounds number, then correct it
+      document.querySelector('#playerNum').addEventListener('input', function () {
+         var playerNumInputElement;
+         playerNumInputElement = document.querySelector('#playerNum');
+         //
+         if(parseInt(playerNumInputElement.value, 10) > 8) {
+            playerNumInputElement.value = '8';
+         } else if (parseInt(playerNumInputElement.value, 10) < 1) {
+            playerNumInputElement.value = '1';
+         }
+      });
+      
       //When the start button is clicked, read in the number of players and create a new game with it
       document.querySelector('#start-button').addEventListener('click', function () {
          var playerNumInputElement;
