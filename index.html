@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -23,7 +22,20 @@ Final Project
 <img src="images/title_logo.png" style="width: 225px; height: 65px;"/>
 </div>
 
-<div class="dice-holder">
+<div class="start-game">
+<ul class="startButtons">
+   <label>No. of Players <input id="playerNum" type="number"></label> 
+</ul>
+<ul class="startButtons">
+   <label>Current Player: </label>   
+</ul>
+<ul class="startButtons">
+   <li>Start Game</li>
+   <li>Reset Game</li>
+</ul>
+</div>
+
+<div class="dice-holder" style="display: none">
 <div class="yahtzee-dice">
  <div> <img id="#diceBox1" src="images/dice1.png" style="width: 250px; height: 250px;"/></div>
  <div> <img src="images/dice1.png" style="width: 250px; height: 250px;"/></div>
@@ -34,7 +46,7 @@ Final Project
 </div>
 </div>
 
-<div class="category-select">
+<div class="category-select" style="display: none">
 <ul id="scoreSelectors" class="scoringButtons">
    <li>One</li>
    <li>Two</li>
@@ -54,7 +66,7 @@ Final Project
    <li>Submit</li>
 </ul>
 </div>
-<div class="scoring-sheet">
+<div class="scoring-sheet" style="display: none">
    <div>
       <table>
       <tr> <th>Upper Section</td>
