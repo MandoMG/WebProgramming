@@ -51,8 +51,20 @@ label{
    list-style: none;
    text-align: center;
    color: #FFFFFF;
-   width: 100px;
+   width: 150px;
    line-height: 50px;
+}
+
+.startButtons li:hover{
+   background-color: #F0C33B;
+   font-weight: bold;
+   color: #FFFFFF;   
+}
+
+.startButtons li:active{
+   background-color: #E0B32B;
+   font-weight: bold;
+   color: #FFFFFF;   
 }
 
 .dice-holder{
