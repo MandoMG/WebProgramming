@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
          //Function that takes in a number of players and initializes a game
          startGame: function (playerCount) {
             //Only start a new game if there isn't a current game going //NOTE: MIGHT NEED TO CHANGE
-            if(!state.gameStarted && playerCount >= 2) {
+            if( playerCount >= 1 ) {
                //Which player we're on and dice counter
                var whichPlayer, numDice;
                
@@ -87,8 +87,8 @@ document.addEventListener('DOMContentLoaded', function () {
                self.roll ();
                //Set the game to started
                state.gameStarted = true;
-               console.log(JSON.stringify(state.scoreSheet));
-               console.log(JSON.stringify(state.dice));
+               //console.log(JSON.stringify(state.scoreSheet));
+               //console.log(JSON.stringify(state.dice));
             }
          },
          //Rolls the dice
@@ -265,7 +265,31 @@ document.addEventListener('DOMContentLoaded', function () {
                //Roll the dice for the next player
                self.roll();
             }
-            console.log(JSON.stringify(state.scoreSheet));
+            //console.log(JSON.stringify(state.scoreSheet));
+         },
+         getWinner: function () {   //Returns an object containing the winning player and their score
+            var sum, bestScore, bestPlayer
+            //Set to default values
+            bestScore = -1;
+            bestPlayer = -1;
+            //For each player
+            state.scoreSheet.forEach(function (player, whichPlayer) {
+               //Reset sum and then add the scores for this player together
+               sum = 0;
+               player.forEach(function (score) {
+                  sum += score;
+               });
+               //If sum is larger than bestScore, save sum into bestScore and save bestPlayer
+               if (sum > bestScore) {
+                  bestScore = sum;
+                  bestPlayer = whichPlayer;
+               }
+            });
+            //Return object with score and winner
+            return {
+               score: bestScore,
+               winner: bestPlayer
+            };
          }
       };
       //TEST
@@ -280,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
       //Updates the page and saves the game
       updateView = function () {
-         var scoreSheetOutputElement, scoreOutputElement, categoryButtonElements, currentPlayerOutputElement;
+         var scoreSheetOutputElement, scoreOutputElement, categoryButtonElements, currentPlayerOutputElement, winner;
          //If local storage exists and we can save the game to it, then do so
          if (localStorage && localStorage.setItem) {
             localStorage.setItem('CS 3312 Final YahtzeeGame', yahtzeeGame.getState());
@@ -317,50 +341,54 @@ document.addEventListener('DOMContentLoaded', function () {
                }
             });
             
-            //If the game isn't over, then we need to update the scores and the current player
+            //Get the current player div
+            currentPlayerOutputElement = document.querySelector('#currentPlayer');
+            
+            //Get the scoresheet div
+            scoreSheetOutputElement = document.querySelector('#players-table');
+            //If the game isn't over
             if (!yahtzeeGame.isGameOver()) {
-               //Get the current player div
-               currentPlayerOutputElement = document.querySelector('#currentPlayer');
-               
-               //Get the scoresheet div
-               scoreSheetOutputElement = document.querySelector('#players-table');
-               
                //Update the title bar with the current player
                currentPlayerOutputElement.textContent = 'Player ' + (yahtzeeGame.getCurrentPlayer() + 1) + '\'s Turn';
-               //Remove all of the elements in the scoreSheet
-               while (scoreSheetOutputElement.hasChildNodes()) {
-                  scoreSheetOutputElement.removeChild(scoreSheetOutputElement.firstChild);
-               }
-               
-               //For each player in the scores
-               yahtzeeGame.getScores().forEach(function (player, index) {
-                  //Insert a table into the scoreSheetOutputElement with an id of player#
-                  scoreSheetOutputElement.insertAdjacentHTML('beforeend', '<table id="player' + (index + 1) + '" >');
-                  //Retrieve the newly created table
-                  scoreOutputElement = document.querySelector('#player'+(index+1));
-                  //Insert a row containing the player's name
-                  scoreOutputElement.insertAdjacentHTML('beforeend', '<tr> <th> Player ' + (index + 1) + '</td>');
-                  //For each score
-                  player.forEach(function (score, whichScore) {
-                     //If the category has been scored in
-                     if(score >= 0) {
-                        //Display the numberical score
-                        scoreOutputElement.insertAdjacentHTML('beforeend', '<tr> <td> ' + (score) + '</td> </tr>');
-                     //Else the category has not been score in
-                     } else {
-                        //So output dashes insted of a number
-                        scoreOutputElement.insertAdjacentHTML('beforeend', '<td> --- </td> ');
-                     }
-                     //If the score is 6's, then we need to separate the pper and lower sections
-                     if (whichScore === 5) {
-                        //Output a blank line
-                        scoreOutputElement.insertAdjacentHTML('beforeend', '<tr> <td></br></td>');
-                     }
-                  });
-                  //End the table for this player
-                  scoreSheetOutputElement.insertAdjacentHTML('beforeend', '</table>');
-               });
+            } else {
+               //Else the game is over, so output the winner and their score total
+               winner = yahtzeeGame.getWinner();
+               currentPlayerOutputElement.textContent = 'Player ' + (winner.winner + 1) + ' wins with ' + (winner.score) + ' points!';
             }
+
+            //Remove all of the elements in the scoreSheet
+            while (scoreSheetOutputElement.hasChildNodes()) {
+               scoreSheetOutputElement.removeChild(scoreSheetOutputElement.firstChild);
+            }
+            
+            //For each player in the scores
+            yahtzeeGame.getScores().forEach(function (player, index) {
+               //Insert a table into the scoreSheetOutputElement with an id of player#
+               scoreSheetOutputElement.insertAdjacentHTML('beforeend', '<table id="player' + (index + 1) + '" >');
+               //Retrieve the newly created table
+               scoreOutputElement = document.querySelector('#player'+(index+1));
+               //Insert a row containing the player's name
+               scoreOutputElement.insertAdjacentHTML('beforeend', '<tr> <th> Player ' + (index + 1) + '</td>');
+               //For each score
+               player.forEach(function (score, whichScore) {
+                  //If the category has been scored in
+                  if(score >= 0) {
+                     //Display the numberical score
+                     scoreOutputElement.insertAdjacentHTML('beforeend', '<tr> <td> ' + (score) + '</td> </tr>');
+                  //Else the category has not been score in
+                  } else {
+                     //So output dashes insted of a number
+                     scoreOutputElement.insertAdjacentHTML('beforeend', '<td> --- </td> ');
+                  }
+                  //If the score is 6's, then we need to separate the pper and lower sections
+                  if (whichScore === 5) {
+                     //Output a blank line
+                     scoreOutputElement.insertAdjacentHTML('beforeend', '<tr> <td></br></td>');
+                  }
+               });
+               //End the table for this player
+               scoreSheetOutputElement.insertAdjacentHTML('beforeend', '</table>');
+            });
          } else if (!yahtzeeGame.hasGameStarted()) {
             
          }
@@ -373,7 +401,9 @@ document.addEventListener('DOMContentLoaded', function () {
          var playerNumInputElement;
          //Get the player number input box
          playerNumInputElement = document.querySelector('#playerNum');
+         //Start the game with the given number of players
          yahtzeeGame.startGame(parseInt(playerNumInputElement.value, 10));
+         //Reset the input value
          playerNumInputElement.value = '';
          updateView();
       });      
@@ -390,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function () {
       //Add a click listener to the rollbutton that calls the roll function of the game, and then updates the view
       rollButton.addEventListener('click', function () {
          yahtzeeGame.roll();
-         console.log(JSON.stringify(yahtzeeGame.getDice()));
+         //console.log(JSON.stringify(yahtzeeGame.getDice()));
          updateView();
       });
       
@@ -413,7 +443,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
       //When the Submit button is clicked, call the score() function with the given selectedCategory, and then reset selectedCategory
       document.querySelector('#submitButton').addEventListener('click', function () {
-         console.log(yahtzeeGame.getCurrentPlayer());
+         //console.log(yahtzeeGame.getCurrentPlayer());
          //If the score category is valid (0-12)
          if (selectedCategory >= 0 && selectedCategory <= 12) {
             //Try to score and then update the board
@@ -421,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function () {
             selectedCategory = -1;                 //Reset the selected scoring box
             updateView();                          //Update the view
          }
-         console.log(yahtzeeGame.isGameOver());
+         //console.log(yahtzeeGame.isGameOver());
       });
       
       //Create a new game; if local storage exists and a game is stored, then retrieve the stored version
