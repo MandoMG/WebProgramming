@@ -136,6 +136,12 @@ label{
    line-height: 50px;
 }
 
+.scoringButtons li:active{
+   background-color: #E0B32B;
+   font-weight: bold;
+   color: #FFFFFF;   
+}
+
 .disabled{   
    background-color: #AAAAAA;
    font-weight: bold;
