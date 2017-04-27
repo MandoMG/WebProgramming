@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="UTF-8" />
-<title>Final Project - Armando Meza</title>
+<title>Yahtzee!</title>
 
 <!--
 CS 3312, spring 2017
@@ -27,7 +27,7 @@ Final Project
    <label>No. of Players <input id="playerNum" type="number" min="2" max="8"></label> 
 </ul>
 <ul class="startButtons">
-   <label id="currentPlayer">Current Player: </label>   
+   <label id="currentPlayer">Enter number of players and press start to begin. </label>   
 </ul>
 <ul class="startButtons">
    <li id="start-button">Start Game</li>
@@ -35,7 +35,7 @@ Final Project
 </ul>
 </div>
 
-<div class="dice-holder" style="display: none">
+<div class="dice-holder hidden">
 <div class="yahtzee-dice">
  <div> <img id="#diceBox1" src="images/dice1.png" style="width: 250px; height: 250px;"/></div>
  <div> <img src="images/dice1.png" style="width: 250px; height: 250px;"/></div>
@@ -46,7 +46,7 @@ Final Project
 </div>
 </div>
 
-<div class="category-select" style="display: none">
+<div class="category-select hidden" >
 <ul id="scoreSelectors" class="scoringButtons">
    <li>One</li>
    <li>Two</li>
@@ -66,7 +66,7 @@ Final Project
    <li>Submit</li>
 </ul>
 </div>
-<div class="scoring-sheet" style="display: none">
+<div class="scoring-sheet hidden">
    <div>
       <table>
       <tr> <th>Upper Section</td>
