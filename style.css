@@ -14,10 +14,8 @@ p {
 	font-size: 0px;
 }
 
-h1{
+label{
    color: white;
-   font-size: 50px;
-   margin: 10px;
 }
 
 #top-header{
@@ -28,6 +26,33 @@ h1{
    border-style: solid;
    padding: 5px;	
 	background-color: #245397;
+}
+
+.start-game {
+	display:flex;
+   margin: 0px;
+   border-top: 1px;
+   border-top-style: solid;
+   border-top-color: #144387;
+   justify-content: space-around;
+	align-items: center;
+	text-align: left;
+   background-color: #245397;   
+}
+
+.startButtons{
+   display: flex;
+   flex-wrap: wrap;
+   margin: 0px;
+}
+
+.startButtons li{   
+   float: left;
+   list-style: none;
+   text-align: center;
+   color: #FFFFFF;
+   width: 100px;
+   line-height: 50px;
 }
 
 .dice-holder{
