@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
                      scoreValue = 50;
                      hasScored = true;
                      //If a yahtzee has already been scored, and wasn't 0, then check to see if the player has played in the corresponding top section
-                     if (state.scoreSheet[state.currentPlayer][scoreType] >= 50 && state.scoreSheet[state.currentPlayer][whichDie] > 0) {
+                     if (state.scoreSheet[state.currentPlayer][scoreType] >= 0 && state.scoreSheet[state.currentPlayer][whichDie] > 0) {
                         //If a second yahtzee has been scored, then score 100 more points in the yahtzee category
                         scoreValue = 100 + state.scoreSheet[state.currentPlayer][scoreType];
                      }
