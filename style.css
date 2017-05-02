@@ -16,6 +16,11 @@ p {
 
 label{
    color: white;
+   padding:7px;
+}
+
+select{
+   width: 40px;
 }
 
 #top-header{
