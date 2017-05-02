@@ -236,14 +236,14 @@ document.addEventListener('DOMContentLoaded', function () {
                      scoreValue = 50;
                      hasScored = true;
                      //If a yahtzee has already been scored, and wasn't 0, then check to see if the player has played in the corresponding top section
-                     if (state.scoreSheet[state.currentPlayer][scoreType] >= 0 && state.scoreSheet[state.currentPlayer][whichDie] > 0) {
+                     if (state.scoreSheet[state.currentPlayer][scoreType] >= 50 && state.scoreSheet[state.currentPlayer][whichDie] > 0) {
                         //If a second yahtzee has been scored, then score 100 more points in the yahtzee category
                         scoreValue = 100 + state.scoreSheet[state.currentPlayer][scoreType];
                      }
                   }
                });
                //If no second yahtzee was scored return from the function without doing anything
-               if(state.scoreSheet[state.currentPlayer][scoreType] >= 50 && scoreValue <= 50) {
+               if(state.scoreSheet[state.currentPlayer][scoreType] >= 0 && scoreValue <= 50) {
                   return hasScored;
                }
             }
@@ -411,8 +411,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       };
       
-      //If a user enters an out of bounds number, then correct it
-      document.querySelector('#playerNum').addEventListener('input', function () {
+      //If a user enters an out of bounds number, then correct it - Fixed using a dropdown menu
+      /*document.querySelector('#playerNum').addEventListener('input', function () {
          var playerNumInputElement;
          playerNumInputElement = document.querySelector('#playerNum');
          //
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function () {
          } else if (parseInt(playerNumInputElement.value, 10) < 1) {
             playerNumInputElement.value = '1';
          }
-      });
+      });*/
       
       //When the start button is clicked, read in the number of players and create a new game with it
       document.querySelector('#start-button').addEventListener('click', function () {
